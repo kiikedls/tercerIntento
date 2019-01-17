@@ -23,6 +23,18 @@
             android:layout_height="50dp"
             android:text="miboton"
             android:layout_gravity="center_vertical|right"/>
+    <TextView
+        android:id="@+id/texcont"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:textSize="20pt" />
+    <TextView
+        android:id="@+id/texdone"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_gravity="top|center"
+        android:textSize="12pt" />
 
 
 
