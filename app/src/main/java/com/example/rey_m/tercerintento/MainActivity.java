@@ -3,6 +3,7 @@ package com.example.rey_m.tercerintento;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,54 +16,61 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     Button btn1;
-    int cont=0;
-    TextView t;
+    int contador = 0;
     TextView d;
+    TextView lbl;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        btn1=findViewById(R.id.miboton);
-
-        btn1=findViewById(R.id.btn1);
-        t=findViewById(R.id.texcont);
-        t.setText("Clicks");
+        btn1 = findViewById(R.id.btn);
+        lbl = findViewById(R.id.lbl1);
         d=findViewById(R.id.texdone);
 
-        btn1.setOnClickListener(new View.OnClickListener() {
+        View.OnClickListener clickbtn = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cont++;
-                t.setText("clicks: "+String.valueOf(cont));
+                contador++;
+                lbl.setText("Clicks: " + String.valueOf(contador));
             }
-        });
+        };
 
-        new CountDownTimer(10000, 500) {
+        btn1.setOnClickListener(clickbtn);
+
+        new CountDownTimer(20000, 750) {
             @Override
             public void onTick(long l) {
+                FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(-2, -2);
+                Random ran = new Random();
+                int x = ran.nextInt(5) + 1;
 
-                FrameLayout.LayoutParams lp=new FrameLayout.LayoutParams(-2,-2);
-                /*lp.gravity=Gravity.TOP;
-                btn1.setLayoutParams(lp);*/
-                Random r=new Random();
-                int n = r.nextInt(5) + 1;
-                switch (n){
-                    case 1:lp.gravity=Gravity.TOP|Gravity.LEFT;
+                Log.i(String.valueOf(x), "num");
+
+                switch (x) {
+                    case 1:
+                        lp.gravity = Gravity.TOP | Gravity.LEFT;
                         break;
-                    case 2:lp.gravity=Gravity.TOP|Gravity.RIGHT;
-                    break;
-                    case 3:lp.gravity=Gravity.BOTTOM|Gravity.RIGHT;
-                    break;
-                    case 4:lp.gravity=Gravity.BOTTOM|Gravity.LEFT;
-                    break;
-                    case 5:lp.gravity=Gravity.CENTER;
-                    break;
+                    case 2:
+                        lp.gravity = Gravity.TOP | Gravity.RIGHT;
+                        break;
+                    case 3:
+                        lp.gravity = Gravity.BOTTOM | Gravity.RIGHT;
+                        break;
+                    case 4:
+                        lp.gravity = Gravity.BOTTOM | Gravity.LEFT;
+                        break;
+                    case 5:
+                        lp.gravity = Gravity.CENTER;
+                        break;
                 }
+
                 btn1.setLayoutParams(lp);
             }
 
             @Override
             public void onFinish() {
+                Toast.makeText(MainActivity.this, "se termino", Toast.LENGTH_SHORT).show();
                 d.setText("juego terminado");
             }
         }.start();
